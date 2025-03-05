@@ -4,7 +4,7 @@ import sys
 from tkinter import filedialog as fd
 import tkinter as tk
 import getpass
-import PyPDF2
+import pypdf
 import getpass
 from time import sleep
 import os
@@ -34,11 +34,11 @@ def encrypt(fpath, pw):
         #print("Wrong password!")
         sleep(1)
         return False
-    pdfWriter = PyPDF2.PdfFileWriter()
+    pdfWriter = pypdf.PdfWriter()
     try:
-        for pageNum in range(pdfReader.numPages):
-            pdfWriter.addPage(pdfReader.getPage(pageNum))
-    except PyPDF2.utils.PdfReadError:
+        for pageNum in range(pdfReader.get_num_pages()):
+            pdfWriter.add_page(pdfReader.get_page(pageNum))
+    except pypdf.errors.PdfReadError:
         return False
     pdfWriter.encrypt(pw)
     resultPdf = open(fpathii + "_encrypted.pdf", "wb")
@@ -48,11 +48,11 @@ def encrypt(fpath, pw):
 
 def decrypt(fpath, pw):
     pdfReader.decrypt(pw)
-    pdfWriter = PyPDF2.PdfFileWriter()
+    pdfWriter = pypdf.PdfWriter()
     try:
-        for pageNum in range(pdfReader.numPages):
-            pdfWriter.addPage(pdfReader.getPage(pageNum))
-    except PyPDF2.utils.PdfReadError:
+        for pageNum in range(pdfReader.get_num_pages()):
+            pdfWriter.add_page(pdfReader.get_page(pageNum))
+    except pypdf.errors.PdfReadError:
         return False
     resultPdf = open(fpathii + "_decrypted.pdf", "wb")
     pdfWriter.write(resultPdf)
@@ -65,7 +65,7 @@ else:
     fpath = sys.argv[1]
 
 pdfFile = open(fpath, "rb")
-pdfReader = PyPDF2.PdfFileReader(pdfFile)
+pdfReader = pypdf.PdfReader(pdfFile)
 fpathi = fpath.split(".")
 fpathi.pop(len(fpathi) - 1)
 fpathii = ""
@@ -77,7 +77,7 @@ for x in fpathi:
 if __name__ == '__main__':
     while True:
         pw = getpass.getpass()
-        if pdfReader.isEncrypted:
+        if pdfReader.is_encrypted:
             if decrypt(fpath, pw):
                 print("File decrypted!")
                 sleep(1)

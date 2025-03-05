@@ -7,7 +7,7 @@ If you select an encrypted file, it will be decrypted, if you select a non-encry
 
 ### Installing
 
-Download the installer from [here](https://github.com/Georg-007/PDFcrypt/releases/download/v3.0/PDFcrypt-Installer.exe) and run it. Follow the instructions there.
+Download the installer from [here](https://github.com/gege-d/PDFcrypt/releases/download/v3.0/PDFcrypt-Installer.exe) and run it. Follow the instructions there.
 You can also use the portable version stored in [PDFcrypt.exe](bin/PDFcrypt.exe).
 
 ## Deployment
